@@ -14,10 +14,22 @@
         color: rgb(190, 200, 175) !important;
         pointer-events: none;
         cursor: default;
-        
+
       }
       .nav-item-left{
         margin-left: -12px;
+        padding-left: 5px;
+      }
+      .navbar-buttons{
+        display: flex;
+        align-items: start;
+      }
+      .navbar-buttons form,
+      .navbar-buttons button{
+        margin-left: 5px;
+      }
+      body{
+          background-color: rgb(220, 220, 220);
       }
     </style>
 </head>
@@ -27,18 +39,22 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         {% block aditional_nav_items %}{% endblock %}
-      </ul>  
+      </ul>
     </div>
-    {% if user.is_authenticated %}
-    <form method="POST" action="{% url 'logout' %}">
-      {% csrf_token %}
-      <button class="btn btn-light" type="submit">Log out</button>
-    </form>
-    {% endif %}
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-            aria-expanded="False" aria-label="Toggle navigation" style="margin-left: -200px;">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="navbar-buttons">
+      {% if request.path != '/app/HomePage/' and request.path != '/' %}
+      <form method="POST" action="#">
+        {% csrf_token %}
+        <button class="btn btn-dark" name="BACK" value="BACK">BACK</button>
+      </form>
+      {% endif %}
+      {% if user.is_authenticated %}
+      <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit">Log out</button>
+      </form>
+      {% endif %}
+    </div>
   </nav>
   <div class="container">{% block content %}{% endblock %}</div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
