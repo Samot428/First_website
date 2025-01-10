@@ -18,6 +18,8 @@ def list_view(response):
                 if response.POST.get(f"check{td.name}") == "clicked":
                     td.delete()
             return HttpResponseRedirect("/app/ToDoList/")
+        elif response.POST.get("BACK"):
+            return HttpResponseRedirect("/app/HomePage/")
         elif response.POST.get("Create"):
             form = CreateNewList(response.POST)
 
@@ -57,6 +59,8 @@ def items_view(response, id):
                     txt = response.POST.get("new-item"+str(item.id)+"-text")
                     item.text = txt
                     item.save()
+        elif response.POST.get("BACK"):
+            return HttpResponseRedirect("/app/ToDoList/")
         elif response.POST.get("Delete"):
             for item in ls.item_set.all():
                 if response.POST.get("c"+str(item.id)) == "clicked":
