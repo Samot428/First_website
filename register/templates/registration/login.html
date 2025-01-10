@@ -2,8 +2,8 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center">  
-<div class="jumbotron" style="width: 50%; border-radius: 0;">
+<div class="d-flex justify-content-center">
+<div class="jumbotron" style="min-width:200px; border-radius: 0; margin-top: 50px">
     <form method="POST" class="form-group">
         {% csrf_token %}
         {{ form.as_p }}
