@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .forms import CreateNewList
-from .models import ToDoList
+from .models import ToDoList, Money
 
 
 def HomePage(request):
@@ -80,5 +80,9 @@ def items_view(response, id):
     return render(response, "TDLItem.html", {"ls": ls})
 
 
-def Financies(request):
-    return render(request, "Financies.html")
+def Financies(response):
+    if response.method == "POST":
+        if response.POST.get("+"):
+             Money.user.current_balance += response.POST.get("new-finance-part")
+        return HttpResponseRedirect("/app/Financies")
+    return render(response, "Financies.html")

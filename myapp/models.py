@@ -28,6 +28,7 @@ class Money(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="money", null=True, blank=True
     )
+    current_balance = 0
     value = models.CharField(max_length=100)
     adding = models.BooleanField(default=True)
 
