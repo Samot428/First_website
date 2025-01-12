@@ -1,14 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .forms import CreateNewList
 from .models import ToDoList
 
+
 def HomePage(request):
-    return render(request, 'HomePage.html')
+    return render(request, "HomePage.html")
+
 
 def list_view(response):
     """
-    User can view his ToDoLists.\n 
+    User can view his ToDoLists.\n
     He can create them and delete them with buttons (delete button won't show if none of the list is made).\n
 
     """
@@ -33,13 +35,16 @@ def list_view(response):
         else:
             # Example of using the get method to retrieve a specific ToDoList instance
             try:
-                todolist = ToDoList.objects.get(id=1)  # Replace with the appropriate filter
+                todolist = ToDoList.objects.get(
+                    id=1
+                )  # Replace with the appropriate filter
             except ToDoList.DoesNotExist:
                 todolist = None
 
-            return render(response, 'ToDoList.html', {'todolist': todolist})
+            return render(response, "ToDoList.html", {"todolist": todolist})
 
     return render(response, "ToDoList.html", {"form": CreateNewList})
+
 
 def items_view(response, id):
     """User sees the items of the list he has already made. \n
@@ -50,20 +55,20 @@ def items_view(response, id):
     if ls in response.user.todolist.all():
         if response.POST.get("save"):
             for item in ls.item_set.all():
-                if response.POST.get("c"+str(item.id)) == "clicked":
+                if response.POST.get("c" + str(item.id)) == "clicked":
                     item.completed = True
                 else:
                     item.completed = False
                 item.save()
-                if response.POST.get("new-item"+str(item.id)+"-text") != item.text:
-                    txt = response.POST.get("new-item"+str(item.id)+"-text")
+                if response.POST.get("new-item" + str(item.id) + "-text") != item.text:
+                    txt = response.POST.get("new-item" + str(item.id) + "-text")
                     item.text = txt
                     item.save()
         elif response.POST.get("BACK"):
             return HttpResponseRedirect("/app/ToDoList/")
         elif response.POST.get("Delete"):
             for item in ls.item_set.all():
-                if response.POST.get("c"+str(item.id)) == "clicked":
+                if response.POST.get("c" + str(item.id)) == "clicked":
                     item.delete()
         elif response.POST.get("newItem"):
             txt = response.POST.get("new")
@@ -72,4 +77,8 @@ def items_view(response, id):
             else:
                 print("invalid")
             return HttpResponseRedirect(f"/app/{ls.id}")
-    return render(response, "TDLItem.html", {"ls":ls})
+    return render(response, "TDLItem.html", {"ls": ls})
+
+
+def Financies(request):
+    return render(request, "Financies.html")
