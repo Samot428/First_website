@@ -11,8 +11,20 @@
         width: 40px;
         margin-left: 5px;
     }
+        /*
+        position: absolute;
+        top: 100px;
+        left: 200px;
+    }
+    .row{
+        position: relative;
+    }
+        */
 </style>
 <div class="jumbotron">
+    <h1 style="text-align: center;">Your Financies</h1>
+    <h4 style="text-align: center;"><input type="text" name="current-balance" value="cb"></h4>
+    <hr class="my-4">
     <form method="post">
         <div class="input-group">
             {% csrf_token %}
