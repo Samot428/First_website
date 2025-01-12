@@ -4,3 +4,24 @@
         <a class="nav-link disabled disabled-nav-link">Financies</a>
     </li>
 {% endblock %}
+{% block content %}
+<style>
+    .finance-buttons{
+        border-radius: 0;
+        width: 40px;
+        margin-left: 5px;
+    }
+</style>
+<div class="jumbotron">
+    <form method="post">
+        <div class="input-group">
+            {% csrf_token %}
+            <div class="row" style="display: flex; padding: 5px ;">
+                <input type="text" name="new-finance-part">
+                <button class="btn btn-success finance-buttons" name="+">+</button>
+                <button class="btn btn-danger finance-buttons" name="-">-</button>
+            </div>    
+        </div>
+    </form>
+</div>
+{% endblock %}
